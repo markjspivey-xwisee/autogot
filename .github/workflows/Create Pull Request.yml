@@ -21,7 +21,7 @@ jobs:
         
         # Create the payload for the API call
         PAYLOAD=$(jq -n --arg prompt "${{ github.event.inputs.prompt }}" '{
-          "model": "text-davinci-003",
+          "model": "gpt-4o",
           "prompt": $prompt,
           "max_tokens": 2000
         }')
