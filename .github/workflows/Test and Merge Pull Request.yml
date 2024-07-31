@@ -1,0 +1,28 @@
+name: Test and Merge Pull Request
+on:
+  pull_request:
+    types: [synchronize, reopened]
+
+jobs:
+  test-and-merge:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Run Tests
+      run: |
+        echo "Running tests..."
+        # Replace this with your actual test commands, e.g., pytest for Python projects
+        echo "All tests passed"
+
+    - name: Merge Pull Request
+      if: success()
+      uses: actions/github-script@v4
+      with:
+        script: |
+          github.pulls.merge({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number
+          })
