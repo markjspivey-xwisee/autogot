@@ -22,8 +22,16 @@ jobs:
         # Create the payload for the API call
         PAYLOAD=$(jq -n --arg prompt "${{ github.event.inputs.prompt }}" '{
           "model": "gpt-4o",
-          "prompt": $prompt,
-          "max_tokens": 2000
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a full stack web developer."
+            },
+            {
+              "role": "user",
+              "content": $prompt
+            }
+          ]
         }')
         
         # Make the API call
